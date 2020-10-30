@@ -93,5 +93,70 @@ namespace NUnitTestProject1
             var indianStateCensusResult = Assert.Throws<CensusAnalyserException>(() => censusAnalyser.LoadCensusData(CensusAnalyser.Country.INDIA, wrongHeaderIndianStateCensusFile, indianStateCensusHeaders));
             Assert.AreEqual(CensusAnalyserException.Exception.INCORRECT_HEADER, indianStateCensusResult.exception);
         }
+        /// <summary>
+        /// Given State Code File Should Return Census Count
+        /// Uc2-Tc1
+        /// </summary>
+        [Test]
+        public void GivenStateCodeFile_ShouldReturnCensusCount()
+        {
+            ///Act
+           var stateRecord = censusAnalyser.LoadCensusData(CensusAnalyser.Country.INDIA, indianStateCodeFilePath, indianStateCodeHeaders);
+            ///Assert
+            Assert.AreEqual(37, stateRecord.Count);
+        }
+
+        /// <summary>
+        /// Given Wrong StateCode File Should Return CustomException
+        /// Uc2-Tc2
+        /// </summary>
+        [Test]
+        public void GivenWrongStateCodeFile_ShouldReturnCustomException()
+        {
+            ///Act
+            var stateResult = Assert.Throws<CensusAnalyserException>(() => censusAnalyser.LoadCensusData(CensusAnalyser.Country.INDIA, indianStateCodeWrongFilePath, indianStateCodeHeaders));
+            ///Assert
+            Assert.AreEqual(CensusAnalyserException.Exception.FILE_NOT_FOUND, stateResult.exception);
+        }
+
+        /// <summary>
+        /// Given Wrong State CodeFile Type Should Return CustomException
+        /// Uc2-Tc3
+        /// </summary>
+        [Test]
+        public void GivenWrongStateCodeFileType_ShouldReturnCustomException()
+        {
+            ///Act
+            var stateResult = Assert.Throws<CensusAnalyserException>(() => censusAnalyser.LoadCensusData(CensusAnalyser.Country.INDIA, wrongIndianStateCodeFileType, indianStateCodeHeaders));
+            ///Assert
+            Assert.AreEqual(CensusAnalyserException.Exception.INVALID_FILE_TYPE, stateResult.exception);
+        }
+
+        /// <summary>
+        /// Given StateCode Delimeter FileType Should Return CustomException
+        /// Uc2-Tc4
+        /// </summary>
+        [Test]
+        public void GivenStateCodeDelimeterFileType_ShouldReturnCustomException()
+        {
+            ///Act
+            var stateResult = Assert.Throws<CensusAnalyserException>(() => censusAnalyser.LoadCensusData(CensusAnalyser.Country.INDIA, delimeterIndianStateCodeFilePath, indianStateCodeHeaders));
+            ///Assert
+            Assert.AreEqual(CensusAnalyserException.Exception.INCORRECT_DELIMITER, stateResult.exception);
+        }
+
+        /// <summary>
+        /// Given Wrong StateCode Header Should Return CustomException
+        /// Uc2-Tc5
+        /// </summary>
+        [Test]
+        public void GivenWrongStateCodeHeader_ShouldReturnCustomException()
+        {
+            ///Act
+            var stateResult = Assert.Throws<CensusAnalyserException>(() => censusAnalyser.LoadCensusData(CensusAnalyser.Country.INDIA, delimeterIndianStateCodeFilePath, indianStateCodeHeaders));
+            ///Assert
+            Assert.AreEqual(CensusAnalyserException.Exception.INCORRECT_DELIMITER, stateResult.exception);
+        }
+
     }
 }
